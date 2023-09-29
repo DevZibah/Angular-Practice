@@ -1,5 +1,5 @@
-<div class="card border border-red">
-  <div class="card-header">Product List</div>
+<div class="card border border-danger">
+  <div class="card-header">{{ pageTitle }}</div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-2">Filter by:</div>
@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="table-responsive">
-      <!-- Building the table -->
-      <table class="table">
+      <!-- Building the table; gives a condition to display the product contents if there are any-->
+      <table class="table" *ngIf="products.length">
         <!-- Table Header -->
         <thead>
           <tr>
@@ -30,7 +30,24 @@
           </tr>
         </thead>
         <!-- table body -->
-        <tbody></tbody>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <!-- we use property binding for the image element -->
+            <td>
+              <img
+                [src]="product.imageUrl"
+                [title]="product.productName"
+                [style.width.px]="imageWidth"
+                [style.margin.px]="imageMargin"
+              />
+            </td>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.productCode }}</td>
+            <td>{{ product.releaseDate }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.starRating }}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
