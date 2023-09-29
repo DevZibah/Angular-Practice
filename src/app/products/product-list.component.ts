@@ -11,10 +11,11 @@ export class ProductListComponent {
   pageTitle: string = 'Product List';
   //  using property binding to set the image size
   imageWidth: number = 50;
-  imageMargin: number = 2; 
+  imageMargin: number = 2;
+  showImage: boolean = false;
   //   define product as an array of 'any' data type
   products: any[] = [
-    { 
+    {
       productId: 1,
       productName: 'Leaf Rake',
       productCode: 'GDN-0011',
@@ -65,4 +66,8 @@ export class ProductListComponent {
       imageUrl: 'assets/images/xbox-controller.png',
     },
   ];
+  //   methods or functions are placed below properties
+  toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
 }
