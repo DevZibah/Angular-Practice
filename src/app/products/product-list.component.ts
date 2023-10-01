@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
 
 // component decorator defines our metadata
@@ -9,8 +9,8 @@ import { IProduct } from './product';
   // linking the external style sheet. we can add more stylesheet urls separated with comma
   styleUrls: ['./product-list.component.css'],
 })
-// class defining our associated code
-export class ProductListComponent {
+// class defining our associated code. we implement the OnInit lifecycle hook interface
+export class ProductListComponent implements OnInit {
   pageTitle: string = 'Product List';
   //  using property binding to set the image size
   imageWidth: number = 50;
@@ -73,5 +73,9 @@ export class ProductListComponent {
   //   methods or functions are placed below properties
   toggleImage(): void {
     this.showImage = !this.showImage;
+  }
+  // OnInit method
+  ngOnInit(): void {
+    console.log('In OnInt');
   }
 }
