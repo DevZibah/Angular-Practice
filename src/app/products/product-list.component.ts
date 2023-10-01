@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IProduct } from './product';
 
 // component decorator defines our metadata
 @Component({
@@ -14,8 +15,8 @@ export class ProductListComponent {
   imageMargin: number = 2;
   showImage: boolean = false;
   listFilter: string = 'cart';
-  //   define product as an array of 'any' data type
-  products: any[] = [
+  //   define product as an array of 'any' data type. IProduct reps an interface data type
+  products: IProduct[] = [
     {
       productId: 1,
       productName: 'Leaf Rake',
