@@ -29,7 +29,12 @@ export class ProductListComponent implements OnInit {
   set listFilter(value: string) {
     this._listFilter = value;
     console.log('In setter:', value);
+    // performFilter is the method to perform filtering
+    this.filteredProducts = this.performFilter(value);
   }
+
+  filteredProducts: IProduct[] = [];
+
   //   define product as an array of 'any' data type. IProduct reps an interface data type
   products: IProduct[] = [
     {
@@ -83,6 +88,15 @@ export class ProductListComponent implements OnInit {
       imageUrl: 'assets/images/xbox-controller.png',
     },
   ];
+
+  // the performFilter method
+  performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter((product: IProduct) =>
+      product.productName.toLocaleLowerCase().includes(filterBy)
+    );
+  }
+
   //   methods or functions are placed below properties
   toggleImage(): void {
     this.showImage = !this.showImage;
