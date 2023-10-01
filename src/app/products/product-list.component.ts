@@ -6,6 +6,8 @@ import { IProduct } from './product';
   selector: 'app-products',
   // template defining our view layout
   templateUrl: './product-list.component.html',
+  // linking the external style sheet. we can add more stylesheet urls separated with comma
+  styleUrls: ['./product-list.component.css'],
 })
 // class defining our associated code
 export class ProductListComponent {
