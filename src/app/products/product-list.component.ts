@@ -16,7 +16,20 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
-  listFilter: string = 'cart';
+  // listFilter: string = 'cart';
+
+  // build a getter and setter by declaring a private backing variable to hold the value managed by the getter and setter. _ denotes that it's a private var
+  private _listFilter: string = '';
+
+  // define a getter
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  // the setter has a single parameter which is the value assigned to the property. the setter has no return value. the body of the setter performs a function anytime the property is changed
+  set listFilter(value: string) {
+    this._listFilter = value;
+    console.log('In setter:', value);
+  }
   //   define product as an array of 'any' data type. IProduct reps an interface data type
   products: IProduct[] = [
     {
@@ -76,6 +89,6 @@ export class ProductListComponent implements OnInit {
   }
   // OnInit method
   ngOnInit(): void {
-    console.log('In OnInt');
+    this._listFilter = 'cart';
   }
 }
