@@ -7,7 +7,7 @@ import { IProduct } from './product';
 // we are using this service to encapsulate the data access features and not share data since we do not have any defined properties. i.e managing the data away from individual components which makes it easier to modify and reuse this logic.
 export class ProductService {
   // this method returns the list of products
-  getProduct(): IProduct[] {
+  getProducts(): IProduct[] {
     return [
       {
         productId: 1,
