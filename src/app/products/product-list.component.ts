@@ -105,4 +105,9 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this._listFilter = 'cart';
   }
+
+  onRatingClicked(message: string): void {
+    // replace the pageTitle property with the data in the message parameter gotten from the nested component.
+    this.pageTitle = 'Product List: ' + message;
+  }
 }
