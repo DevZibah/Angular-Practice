@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IProduct } from './product';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,25 @@ export class ProductService {
 
   // this method returns an observable of IProduct array
   getProducts(): Observable<IProduct[]> {
-    // we will call the http get method here. this method will automatically map the returned response to an array of products
-    return this.http.get<IProduct[]>(this.productUrl);
+    // we will call the http get method here. this method will automatically map the returned response to an array of products. we call the observable pipe method to specify a set of operators
+    return this.http.get<IProduct[]>(this.productUrl).pipe(
+      // tap operator to access the admitted item(data) without modifying it
+      tap((data) => console.log('All', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+  // in the method below, we handle logging our errors
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      // A client-side or network error ocurred, handle it accordingly
+      errorMessage = `An error ocurred: ${err.error.message}`;
+    } else {
+      // the backend returned an unsuccessful response code.
+      // the response body may contain clue as to what went wrong
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(() => errorMessage);
   }
 }
