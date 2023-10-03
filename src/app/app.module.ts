@@ -8,14 +8,18 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './products/product-list.component';
 import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
 import { StarComponent } from './shared/star.component';
+import { ProductDetailComponent } from './products/product-detail.component';
+import { WelcomeComponent } from './home/welcome.component';
 
 @NgModule({
   // used for declaring components, directives and pipes that belongs to this module 
   declarations: [
     AppComponent,
+    WelcomeComponent,
     ProductListComponent,
     ConvertToSpacesPipe,
-    StarComponent
+    StarComponent,
+    ProductDetailComponent
   ],
   // for pulling in external modules
   imports: [
