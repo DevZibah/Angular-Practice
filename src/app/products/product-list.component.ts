@@ -17,6 +17,8 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
+  // to handle errors from a http request
+  errorMessage: string = '';
 
   // build a getter and setter by declaring a private backing variable to hold the value managed by the getter and setter. _ denotes that it's a private var
   private _listFilter: string = '';
@@ -57,12 +59,19 @@ export class ProductListComponent implements OnInit {
   // OnInit method performs component initialization.
   ngOnInit(): void {
     // we set the products property to the products returned from the ProductService
-    this.products = this.productService.getProducts();
-
-    // in order to not bind to the filtered products property, so that when the application is initialized, we set the filteredProducts property the full list of products.
-    this.filteredProducts = this.products
-
-    // this._listFilter = 'cart';
+    // we subscribe to the returned observable, calling the subscribe method and passing an observer object
+    this.productService.getProducts().subscribe({
+      // the observer object provides functions below for responding to our three notifications(next,error,complete)
+      // the next function specifies what we want to do when the observable emits the next value
+      // when the array of products is returned as a response, we want to assign our local products var to the returned array of products
+      next: (products) => {
+        this.products = products;
+        // in order to not bind to the filtered products property, so that when the application is initialized, we set the filteredProducts property the full list of products.
+        this.filteredProducts = this.products;
+      },
+      // we use the error notification to define what to do if the observable emits an error
+      error: (err) => (this.errorMessage = err),
+    });
   }
 
   onRatingClicked(message: string): void {
