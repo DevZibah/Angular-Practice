@@ -10,25 +10,36 @@ import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
 import { StarComponent } from './shared/star.component';
 import { ProductDetailComponent } from './products/product-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  // used for declaring components, directives and pipes that belongs to this module 
+  // used for declaring components, directives and pipes that belongs to this module
   declarations: [
     AppComponent,
     WelcomeComponent,
     ProductListComponent,
     ConvertToSpacesPipe,
     StarComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
   ],
   // for pulling in external modules
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    // passing an array of routes
+    RouterModule.forRoot([
+      { path: 'products', component: ProductListComponent },
+      { path: 'products/:id', component: ProductDetailComponent },
+      { path: 'welcome', component: WelcomeComponent },
+      // default route
+      { path: '', redirectTo: 'Welcome', pathMatch: 'full' },
+      // display a PageNotFound page
+      { path: '**', redirectTo: 'Welcome', pathMatch: 'full' },
+    ]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
