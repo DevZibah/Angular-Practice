@@ -1,70 +1,21 @@
 import { Injectable } from '@angular/core';
 import { IProduct } from './product';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 // we are using this service to encapsulate the data access features and not share data since we do not have any defined properties. i.e managing the data away from individual components which makes it easier to modify and reuse this logic.
 export class ProductService {
-  // 
-  private productUrl = 'api/products/products.json'
+  //
+  private productUrl = 'api/products/products.json';
   //Angular will inject the http client service instance into the variable(constructor params)
   constructor(private http: HttpClient) {}
 
-  // this method returns the list of products
-  getProducts(): IProduct[] {
-    return [
-      {
-        productId: 1,
-        productName: 'Leaf Rake',
-        productCode: 'GDN-0011',
-        releaseDate: 'March 19, 2021',
-        description: 'Leaf rake with 48-inch wooden handle.',
-        price: 19.95,
-        starRating: 3.2,
-        imageUrl: 'assets/images/leaf_rake.png',
-      },
-      {
-        productId: 2,
-        productName: 'Garden Cart',
-        productCode: 'GDN-0023',
-        releaseDate: 'March 18, 2021',
-        description: '15 gallon capacity rolling garden cart',
-        price: 32.99,
-        starRating: 4.2,
-        imageUrl: 'assets/images/garden_cart.png',
-      },
-      {
-        productId: 3,
-        productName: 'Hammer',
-        productCode: 'TBX-0048',
-        releaseDate: 'May 21, 2021',
-        description: 'Curved claw steel hammer',
-        price: 8.9,
-        starRating: 4.8,
-        imageUrl: 'assets/images/hammer.png',
-      },
-      {
-        productId: 4,
-        productName: 'Saw',
-        productCode: 'TBX-0022',
-        releaseDate: 'May 15, 2021',
-        description: '15-inch steel blade hand saw',
-        price: 11.55,
-        starRating: 3.7,
-        imageUrl: 'assets/images/saw.png',
-      },
-      {
-        productId: 5,
-        productName: 'Video Game Controller',
-        productCode: 'GMG-0042',
-        releaseDate: 'October 15, 2020',
-        description: 'Standard two-button video game controller',
-        price: 35.95,
-        starRating: 4.6,
-        imageUrl: 'assets/images/xbox-controller.png',
-      },
-    ];
+  // this method returns an observable of IProduct array
+  getProducts(): Observable<IProduct[]> {
+    // we will call the http get method here. this method will automatically map the returned response to an array of products
+    return this.http.get<IProduct[]>(this.productUrl);
   }
 }
