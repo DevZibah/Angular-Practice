@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IProduct } from './product';
 import { ProductService } from './product.service';
+import { Subscription } from 'rxjs';
 
 // component decorator defines our metadata
 @Component({
@@ -10,8 +11,8 @@ import { ProductService } from './product.service';
   // linking the external style sheet. we can add more stylesheet urls separated with comma
   styleUrls: ['./product-list.component.css'],
 })
-// class defining our associated code. we implement the OnInit lifecycle hook interface
-export class ProductListComponent implements OnInit {
+// class defining our associated code. we implement the OnInit lifecycle hook interface and the onDestroy lifecycle hook to unsubscribe 
+export class ProductListComponent implements OnInit, OnDestroy{
   pageTitle: string = 'Product List';
   //  using property binding to set the image size
   imageWidth: number = 50;
@@ -19,6 +20,8 @@ export class ProductListComponent implements OnInit {
   showImage: boolean = false;
   // to handle errors from a http request
   errorMessage: string = '';
+  // declare a var for the subscription. so, sub is of the data type: subscription or undefined. the exclamation mark (sub!) means that we're telling Typescript that we will assign the var (sub) a value later.
+  sub!: Subscription;
 
   // build a getter and setter by declaring a private backing variable to hold the value managed by the getter and setter. _ denotes that it's a private var
   private _listFilter: string = '';
@@ -60,7 +63,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     // we set the products property to the products returned from the ProductService
     // we subscribe to the returned observable, calling the subscribe method and passing an observer object
-    this.productService.getProducts().subscribe({
+    // we assign the var (sub) to the subscription returned when calling a subscribed method
+    this.sub = this.productService.getProducts().subscribe({
       // the observer object provides functions below for responding to our three notifications(next,error,complete)
       // the next function specifies what we want to do when the observable emits the next value
       // when the array of products is returned as a response, we want to assign our local products var to the returned array of products
@@ -72,6 +76,11 @@ export class ProductListComponent implements OnInit {
       // we use the error notification to define what to do if the observable emits an error
       error: (err) => (this.errorMessage = err),
     });
+  }
+
+  // we define this method because it is required by the lifecycle hook. we use the sub var to call unsubscribe
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   onRatingClicked(message: string): void {
