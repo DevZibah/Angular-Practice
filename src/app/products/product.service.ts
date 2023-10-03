@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { IProduct } from './product';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 // we are using this service to encapsulate the data access features and not share data since we do not have any defined properties. i.e managing the data away from individual components which makes it easier to modify and reuse this logic.
 export class ProductService {
+  // 
+  private productUrl = 'api/products/products.json'
+  //Angular will inject the http client service instance into the variable(constructor params)
+  constructor(private http: HttpClient) {}
+
   // this method returns the list of products
   getProducts(): IProduct[] {
     return [
