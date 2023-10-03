@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'pm-star',
-  templateUrl: './star.component.html',
-  styleUrls: ['./star.component.css'],
+  selector: 'pm-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css'],
 })
 export class WelcomeComponent {}

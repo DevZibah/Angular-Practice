@@ -34,9 +34,9 @@ import { RouterModule } from '@angular/router';
       { path: 'products/:id', component: ProductDetailComponent },
       { path: 'welcome', component: WelcomeComponent },
       // default route
-      { path: '', redirectTo: 'Welcome', pathMatch: 'full' },
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       // display a PageNotFound page
-      { path: '**', redirectTo: 'Welcome', pathMatch: 'full' },
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
     ]),
   ],
   providers: [],
