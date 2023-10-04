@@ -49,7 +49,12 @@
                 [style.margin.px]="imageMargin"
               />
             </td>
-            <td>{{ product.productName }}</td>
+            <td>
+              <!-- takes you to the product-detail showing the particular productId page -->
+              <a [routerLink]="['/products', product.productId]">{{
+                product.productName
+              }}</a>
+            </td>
             <!-- add the custom pipe name: 'convertToSpaces' created in the pipe class component here. -->
             <td>
               {{ product.productCode | lowercase | convertToSpaces : "-" }}
@@ -60,7 +65,11 @@
             <!-- the star selector here makes the nested component display here. we also add a property binding to send the star rating data to the nested component -->
             <td>
               <!-- when the ratingClicked event occurs, we call the onratingClicked method in the product-list component. we use $event parameter to pass a string;it passes data associated with the generated event-->
-              <pm-star [rating]="product.starRating"(ratingClicked) = 'onRatingClicked($event)'></pm-star></td>
+              <pm-star
+                [rating]="product.starRating"
+                (ratingClicked)="onRatingClicked($event)"
+              ></pm-star>
+            </td>
           </tr>
         </tbody>
       </table>
