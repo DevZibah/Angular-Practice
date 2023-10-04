@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct } from './product';
 
 @Component({
@@ -15,7 +15,8 @@ export class ProductDetailComponent implements OnInit {
 
   // reads the route parameter so it knows which product detail to display
   // the ActivatedRoute service provides info on the state of the current route, including the route params
-  constructor(private route: ActivatedRoute) {}
+  // the Router service is used to activate a route with code
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   // the OnInit lifecycle hook function is executed when the component is initialized
   ngOnInit(): void {
@@ -35,5 +36,10 @@ export class ProductDetailComponent implements OnInit {
       starRating: 3.7,
       imageUrl: 'assets/images/saw.png',
     };
+  }
+  // the purpose of this method is to navigate the product-detail page back to the product-list page
+  onBack(): void {
+    // we use the router instance and call the navigate method
+    this.router.navigate(['/products']);
   }
 }
