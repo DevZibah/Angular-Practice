@@ -11,6 +11,7 @@ import { StarComponent } from './shared/star.component';
 import { ProductDetailComponent } from './products/product-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
+import { productDetailGuard } from './products/product-detail.guard';
 
 @NgModule({
   // used for declaring components, directives and pipes that belongs to this module
@@ -32,7 +33,12 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       { path: 'products', component: ProductListComponent },
       // the CanActivate guard prevents navigation to he product-detail route if the id is 0 or NaN(not a number)
-      { path: 'products/:id', component: ProductDetailComponent },
+      {
+        path: 'products/:id',
+        // here we specify each guard we want to execute when activating the route
+        canActivate: [productDetailGuard],
+        component: ProductDetailComponent,
+      },
       { path: 'welcome', component: WelcomeComponent },
       // default route
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
