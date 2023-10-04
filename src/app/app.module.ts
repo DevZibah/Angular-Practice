@@ -12,6 +12,7 @@ import { ProductDetailComponent } from './products/product-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
 import { productDetailGuard } from './products/product-detail.guard';
+import { ProductModule } from './products/product.module';
 
 @NgModule({
   // used for declaring components, directives and pipes that belongs to this module
@@ -45,6 +46,7 @@ import { productDetailGuard } from './products/product-detail.guard';
       // display a PageNotFound page
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
     ]),
+    ProductModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
