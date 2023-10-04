@@ -1,5 +1,7 @@
 <div class="card">
-    <div class="card-header">
-        {{pageTitle}}
-    </div>
+  <!-- we use the safe navigaton operator(? example: product?.productName) to prevent the undefined error. so, if the project object is null or undefined, the (?) operator returns null -->
+  <!-- But the best method will be to use the ngIf to check whether the products are defined. if undefined, the element with class= 'card-header' and all of its children will not appear in the DOM -->
+  <div class="card-header">
+    {{ pageTitle + " : " + product?.productName }}
+  </div>
 </div>
