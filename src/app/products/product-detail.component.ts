@@ -15,6 +15,11 @@ export class ProductDetailComponent implements OnInit {
 
   // the OnInit lifecycle hook function is executed when the component is initialized
   ngOnInit(): void {
-
+    // since the parameter won't change when the component is displayed, we'll use the snapshot approach to read the params
+    // we use the const keyword when declaring Id
+    // we add the Number function so that the params('id') becomes a number data type
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    // to see the Id we read from the Url, we display it as part of the pageTitle
+    this.pageTitle = this.pageTitle + `: ${id}`;
   }
 }
