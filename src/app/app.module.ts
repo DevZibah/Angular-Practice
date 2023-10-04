@@ -31,6 +31,7 @@ import { RouterModule } from '@angular/router';
     // passing an array of routes
     RouterModule.forRoot([
       { path: 'products', component: ProductListComponent },
+      // the CanActivate guard prevents navigation to he product-detail route if the id is 0 or NaN(not a number)
       { path: 'products/:id', component: ProductDetailComponent },
       { path: 'welcome', component: WelcomeComponent },
       // default route

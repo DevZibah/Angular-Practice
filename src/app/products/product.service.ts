@@ -3,6 +3,7 @@ import { IProduct } from './product';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 
+// we use Injectable decorator to register this service with the root angular injector by setting providedIn to root
 @Injectable({
   providedIn: 'root',
 })
