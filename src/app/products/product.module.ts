@@ -1,16 +1,27 @@
 import { NgModule } from '@angular/core';
-import { ProductListComponent } from './product-list.component';
-import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
-import { ProductDetailComponent } from './product-detail.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
 import { productDetailGuard } from './product-detail.guard';
+
 import { SharedModule } from '../shared/shared.module';
+
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData } from './product-data';
+
+import { ProductListComponent } from './product-list.component';
+import { ProductDetailComponent } from './product-detail.component';
+import { ProductEditComponent } from './product-edit.component';
+import { productEditGuard } from './product-edit.guard';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
     ConvertToSpacesPipe,
+    ProductEditComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -22,9 +33,16 @@ import { SharedModule } from '../shared/shared.module';
         canActivate: [productDetailGuard],
         component: ProductDetailComponent,
       },
+      {
+        path: 'products/:id/edit',
+        canDeactivate: [productEditGuard],
+        component: ProductEditComponent,
+      },
     ]),
     // the product.module accesses the exports from the SharedModule
     SharedModule,
+    ReactiveFormsModule,
+    InMemoryWebApiModule.forRoot(ProductData),
   ],
 })
 export class ProductModule {}
